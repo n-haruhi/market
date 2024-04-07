@@ -1,22 +1,17 @@
 Rails.application.routes.draw do
   namespace :public do
-    get 'homes/top'
+    get 'top' => 'homes#top', as: 'top'
 
-    get 'items/index'
-    get 'items/show'
-
-    get 'addresses/index'
-    get 'addresses/edit'
+    resources :items, only: [:index, :show]
+    resources :addresses, only: [:index, :create, :edit, :update, :destroy]
 
   end
 
   namespace :admin do
-    get 'homes/top'
+    get 'top' => 'homes#top', as: 'top'
 
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
+    resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
