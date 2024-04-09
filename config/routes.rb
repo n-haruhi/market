@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :customers
   namespace :public do
     get 'top' => 'homes#top', as: 'top'
 
