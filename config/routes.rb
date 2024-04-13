@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-
     get 'top' => 'homes#top', as: 'top'
 
     resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
@@ -11,10 +10,13 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :customers
+  devise_for :customers, controllers: {
+    sessions: 'public/sessions',
+    registrations: 'public/registrations',
+  }
 
   namespace :public do
-    get 'top' => 'homes#top', as: 'top'
+    root to: 'homes#top'
 
     resources :items, only: [:index, :show]
     resources :addresses, only: [:index, :create, :edit, :update, :destroy]
