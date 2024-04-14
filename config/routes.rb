@@ -18,8 +18,11 @@ Rails.application.routes.draw do
   namespace :public do
     root to: 'homes#top'
 
-    resources :items, only: [:index, :show]
     resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+    resources :items, only: [:index, :show] do
+      resources :cart_items, only: [:create, :update, :destroy]
+    end
+    resources :cart_items, only: [:index]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
