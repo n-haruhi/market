@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     registrations: 'public/registrations',
   }
 
-  namespace :public do
+  scope module: :public do
     root to: 'homes#top'
 
     resources :addresses, only: [:index, :create, :edit, :update, :destroy]
@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       resources :cart_items, only: [:create, :update, :destroy]
     end
     resources :cart_items, only: [:index]
+    delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all_cart_items'
+
     resources :orders, only: [:index, :new, :create, :show]
     post 'orders/confirm' => 'orders#confirm'
     get 'orders/thanks' => 'orders#thanks', as: 'thanks'
