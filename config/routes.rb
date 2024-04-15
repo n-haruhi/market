@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'orders/index'
-    get 'orders/new'
-    get 'orders/show'
-  end
   namespace :admin do
     get 'top' => 'homes#top', as: 'top'
 
@@ -28,7 +23,10 @@ Rails.application.routes.draw do
       resources :cart_items, only: [:create, :update, :destroy]
     end
     resources :cart_items, only: [:index]
-  end
+    resources :orders, only: [:index, :new, :create, :show]
+    post 'orders/confirm' => 'orders#confirm'
+    get 'orders/thanks' => 'orders#thanks', as: 'thanks'
 
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
