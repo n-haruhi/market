@@ -1,2 +1,48 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
+<div class='container'>
+  <div class='col'>
+  <h2>Admin アイテム編集</h2>
+    <%= form_with model: @item, url: '/items' do |f| %>
+    <!--<%#= render 'layouts/error_messages', resource: item %>-->
+    <div class="flex">
+      <table class="admin_item_info item_form">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= f.label :name, "商品名" %></td>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :introduction, "商品説明" %></td>
+            <td><%= f.text_area :introduction, rows: 3 %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :genre_id, "ジャンル" %></td>
+            <td class="select_field"><%= f.collection_select :genre_id, Genre.all, :id, :name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :price, "税抜価格" %></td>
+            <td><%= f.number_field :price %> 円</td>
+          </tr>
+          <tr>
+            <td><%= f.label :sales_status, "販売ステータス" %></td>
+            <td class="select_field">
+            <%= f.radio_button :is_active, true %>
+            <%= f.label :is_active, "販売中", class: "text-active" %>
+            <%= f.radio_button :is_active, false %>
+            <%= f.label :is_active, "販売停止中", class: "text-invalid" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="flex align-center pl5">
+        <%= f.submit "作成", class: "btn btn-sm btn-outline-primary" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
